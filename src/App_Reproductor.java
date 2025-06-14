@@ -26,31 +26,31 @@ public class App_Reproductor {
                     System.out.println("Playlist '" + nombrePlaylist + "' creada exitosamente.");
                     break;
                 case 2:
-                    System.out.print("Ingresa el nombre de la canción: ");
-                    String nombreCancion = scanner.nextLine();
+                    System.out.print("Ingresa el nombre de la playlist a la que deseas agregar canciones: ");
+                    String nombrePlaylistAgregar = scanner.nextLine();
                     break;
                 case 3:
-                    System.out.println("Reproduciendo la playlist...");
+                    System.out.print("Ingresa el nombre de la playlist que deseas reproducir: ");
+                    String nombrePlaylistReproducir = scanner.nextLine();
                     break;
                 case 4:
-                    System.out.print("Ingresa el nombre de la canción a buscar: ");
-                    String nombreBuscar = scanner.nextLine();
+                    System.out.print("Ingresa el nombre de la canción que deseas buscar: ");
+                    String nombreCancionBuscar = scanner.nextLine();
                     break;
                 case 5:
-                    System.out.print("Ingresa el nombre de la canción a eliminar: ");
-                    String nombreeCancion = scanner.nextLine();  
+                    System.out.print("Ingresa el nombre de la canción que deseas eliminar: ");
+                    String nombreCancionEliminar = scanner.nextLine();
                     break;
                 case 6:
                     System.out.println("Saliendo del reproductor. ¡Hasta luego!");
-                    break;
+                    return;
                 default:
-                    System.out.println("Opción no válida. Por favor, selecciona una opción del 1 al 6.");
+                    System.out.println("Opción no válida. Por favor, intenta de nuevo.");
             }
-        } catch (Exception e) {
+        } catch (Exception e) 
+        {
             System.out.println("Error: " + e.getMessage());
             System.out.println("Por favor, ingresa un número válido.");
-
         }
-
     }
 }
