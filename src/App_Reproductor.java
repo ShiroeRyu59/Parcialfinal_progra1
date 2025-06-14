@@ -8,8 +8,9 @@ public class App_Reproductor {
         System.out.println("1. Crear una playlist");
         System.out.println("2. Agregar canciones a una playlist");
         System.out.println("3. Reproducir una playlist"); 
-        System.out.println("4. Buscar o eliminar canciones de una playlist");  
-        System.out.println("5. Salir");
+        System.out.println("4. Buscar una canción dentro de todas las playlists");
+        System.out.println("5. Eliminar una canción de una playlist");  
+        System.out.println("6. Salir");
         System.out.print("Selecciona una opción: ");
         try {
             java.util.Scanner scanner = new java.util.Scanner(System.in);
@@ -21,7 +22,7 @@ public class App_Reproductor {
                     System.out.print("Ingresa el nombre de la playlist: ");
                     String playlistName = scanner.nextLine();
                     Playlist playlist = new Playlist(playlistName);
-                    System.out.println("Playlist '" + playlistName + "' creada exitosamente.");
+                    System.out.println("Playlist '" + playlist.getName() + "' creada exitosamente.");
                     break;
                 case 2:
                     System.out.print("Ingresa el nombre de la canción: ");
@@ -32,29 +33,32 @@ public class App_Reproductor {
                     int duration = scanner.nextInt();
                     Canciones song = new Canciones(songName, artist, duration);
                     playlist.addSong(song);
-                    System.out.println("Canción '" + songName + "' agregada a la playlist.");
+                    System.out.println("Canción '" + song.getNombre() + "' agregada a la playlist.");
                     break;
                 case 3:
                     playlist.play();
                     break;
                 case 4:
-                    System.out.print("Ingresa el nombre de la canción a buscar o eliminar: ");
-                    String searchOrDeleteSong = scanner.nextLine();
-                    SearchorDelete.searchSong(playlist, searchOrDeleteSong);
-                    SearchorDelete.deleteSong(playlist, searchOrDeleteSong);
+                    System.out.print("Ingresa el nombre de la canción a buscar: ");
+                    String searchSongName = scanner.nextLine();
+                    SearchorDelete.searchSong(playlist, searchSongName);
                     break;
                 case 5:
-                    System.out.println("Saliendo del reproductor. ¡Hasta luego!");
+                    System.out.print("Ingresa el nombre de la canción a eliminar: ");
+                    String deleteSongName = scanner.nextLine();
+                    SearchorDelete.deleteSong(playlist, deleteSongName);
                     break;
+                case 6:
+                    System.out.println("Saliendo del reproductor. ¡Hasta luego!");
+                    return;
                 default:
-                    System.out.println("Opción no válida. Por favor, selecciona una opción del 1 al 5.");
+                    System.out.println("Opción no válida. Por favor, selecciona una opción del 1 al 6.");
             }
-            scanner.close();
-        } catch (Exception e) 
-        {
+        } catch (Exception e) {
             System.out.println("Ocurrió un error: " + e.getMessage());
             e.printStackTrace();
-            // TODO: handle exception
+        } finally {
+            System.out.println("Gracias por usar el reproductor de música. ¡Hasta luego!");
         }
 
         
