@@ -1,32 +1,53 @@
 public class SearchorDelete 
 {
-    // Método para buscar una canción en la playlist
-    public static void searchSong(Playlist playlist, String songName) {
-        Canciones song = playlist.findSong(songName);
-        try {
-            if (song != null) {
-                System.out.println("Canción encontrada: " + song);
-            } else {
-                System.out.println("Canción no encontrada en la playlist.");
+    public static void searchSong(Playlistv2 playlist, String songName) 
+    {
+        Canciones current = playlist.inicio;
+        boolean found = false;
+
+        while (current != null) 
+        {
+            if (current.nombre.equalsIgnoreCase(songName)) 
+            {
+                System.out.println("Canción encontrada: " + current.nombre + " de " + current.artista);
+                found = true;
+                break;
             }
-        } catch (Exception e) {
-            System.out.println("Ocurrió un error al buscar la canción: " + e.getMessage());
-            e.printStackTrace();
+            current = current.siguienteCanciones;
+        }
+
+        if (!found) 
+        {
+            System.out.println("Canción no encontrada en la playlist.");
         }
     }
 
-    // Método para eliminar una canción de la playlist
-    public static void deleteSong(Playlist playlist, String songName) {
-        boolean removed = playlist.removeSong(songName);
-        try {
-            if (removed) {
-                System.out.println("Canción '" + songName + "' eliminada de la playlist.");
-            } else {
-                System.out.println("No se encontró la canción '" + songName + "' para eliminar.");
+    public static void deleteSong(Playlistv2 playlist, String songName) 
+    {
+        Canciones current = playlist.inicio;
+        Canciones previous = null;
+
+        while (current != null) 
+        {
+            if (current.nombre.equalsIgnoreCase(songName)) 
+            {
+                if (previous == null) 
+                {
+                    // Eliminar la primera canción
+                    playlist.inicio = current.siguienteCanciones;
+                } else 
+                {
+                    // Eliminar una canción intermedia o final
+                    previous.siguienteCanciones = current.siguienteCanciones;
+                }
+                playlist.numCanciones--;
+                System.out.println("Canción eliminada: " + current.nombre);
+                return;
             }
-        } catch (Exception e) {
-            System.out.println("Ocurrió un error al eliminar la canción: " + e.getMessage());
-            e.printStackTrace();
+            previous = current;
+            current = current.siguienteCanciones;
         }
+
+        System.out.println("Canción no encontrada para eliminar.");
     }
 }
